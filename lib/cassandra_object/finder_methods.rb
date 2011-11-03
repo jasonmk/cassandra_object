@@ -23,8 +23,8 @@ module CassandraObject
 
       def all(options = {})
         limit = options[:limit] || 100
-        results = ActiveSupport::Notifications.instrument("get_range.cassandra_object", column_family: column_family, key_count: limit) do
-          connection.get_range(column_family, key_count: limit, consistency: thrift_read_consistency)
+        results = ActiveSupport::Notifications.instrument("get_range.cassandra_object", :column_family => column_family, :key_count => limit) do
+          connection.get_range(column_family, :key_count => limit, :consistency => thrift_read_consistency)
         end
 
         results.map do |k, v|
@@ -33,7 +33,7 @@ module CassandraObject
       end
 
       def first(options = {})
-        all(options.merge(limit: 1)).first
+        all(options.merge(:limit => 1)).first
       end
 
       def find_with_ids(*ids)
@@ -50,8 +50,8 @@ module CassandraObject
       end
 
       def multi_get(keys, options={})
-        attribute_results = ActiveSupport::Notifications.instrument("multi_get.cassandra_object", column_family: column_family, keys: keys) do
-          connection.multi_get(column_family, keys.map(&:to_s), consistency: thrift_read_consistency)
+        attribute_results = ActiveSupport::Notifications.instrument("multi_get.cassandra_object", :column_family => column_family, :keys => keys) do
+          connection.multi_get(column_family, keys.map(&:to_s), :consistency => thrift_read_consistency)
         end
 
         Hash[attribute_results.map do |key, attributes|

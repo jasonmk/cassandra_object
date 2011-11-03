@@ -19,7 +19,7 @@ class CassandraObject::BatchesTest < CassandraObject::TestCase
     Issue.create
     
     issue_batches = []
-    Issue.find_in_batches(batch_size: 2) do |issues|
+    Issue.find_in_batches(:batch_size => 2) do |issues|
       issue_batches << issues
     end
     

@@ -3,7 +3,7 @@ require 'bundler/setup'
 require 'rake'
 require 'rake/testtask'
 
-task default: :test
+task :default => :test
 
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'

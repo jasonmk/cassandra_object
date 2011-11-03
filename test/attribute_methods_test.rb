@@ -11,7 +11,7 @@ class CassandraObject::AttributeMethodsTest < CassandraObject::TestCase
     key :uuid
     self.column_family = 'Issues'
 
-    attribute :custom_column, type: CustomType, coder: CustomCoder
+    attribute :custom_column, :type => CustomType, :coder => CustomCoder
     integer :price
     json :orders
   end
@@ -28,7 +28,7 @@ class CassandraObject::AttributeMethodsTest < CassandraObject::TestCase
   end
 
   test 'json attribute' do
-    issue = TestIssue.create! orders: {'a' => 'b'}
+    issue = TestIssue.create! :orders => {'a' => 'b'}
 
     issue = TestIssue.find issue.id
 
@@ -54,7 +54,7 @@ class CassandraObject::AttributeMethodsTest < CassandraObject::TestCase
     issue = Issue.new
 
     issue.attributes = {
-      description: 'foo'
+      :description => 'foo'
     }
 
     assert_equal 'foo', issue.description

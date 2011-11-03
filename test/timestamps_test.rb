@@ -20,7 +20,7 @@ class CassandraObject::TimestampsTest < CassandraObject::TestCase
 
   test 'created_at sets only if nil' do
     time = 5.days.ago
-    issue = Issue.create created_at: time
+    issue = Issue.create :created_at => time
 
     assert_equal time, issue.created_at
   end

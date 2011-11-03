@@ -9,7 +9,7 @@ class CassandraObject::IdentityTest < CassandraObject::TestCase
 
   test 'set id' do
     uuid = SimpleUUID::UUID.new.to_guid
-    issue = Issue.create id: uuid
+    issue = Issue.create :id => uuid
 
     assert_equal issue.key.to_s, uuid
   end

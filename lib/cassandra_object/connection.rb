@@ -8,8 +8,8 @@ module CassandraObject
 
     module ClassMethods
       DEFAULT_OPTIONS = {
-        servers: "127.0.0.1:9160",
-        thrift: {}
+        :servers => "127.0.0.1:9160",
+        :thrift => {}
       }
       def establish_connection(spec)
         spec.reverse_merge!(DEFAULT_OPTIONS)

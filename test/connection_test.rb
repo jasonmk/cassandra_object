@@ -6,9 +6,9 @@ class CassandraObject::ConnectionTest < CassandraObject::TestCase
 
   test 'establish_connection' do
     TestObject.establish_connection(
-      keyspace: 'place_directory_development',
-      servers: '192.168.0.100:9160',
-      thrift: {'timeout' => 10}
+      :keyspace => 'place_directory_development',
+      :servers => '192.168.0.100:9160',
+      :thrift => {'timeout' => 10}
     )
 
     assert_not_equal CassandraObject::Base.connection, TestObject.connection
@@ -19,7 +19,7 @@ class CassandraObject::ConnectionTest < CassandraObject::TestCase
 
   test 'establish_connection defaults' do
     TestObject.establish_connection(
-      keyspace: 'place_directory_development'
+      :keyspace => 'place_directory_development'
     )
 
     assert_equal 'place_directory_development', TestObject.connection.keyspace

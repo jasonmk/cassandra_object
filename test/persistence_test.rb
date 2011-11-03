@@ -13,12 +13,12 @@ class CassandraObject::PersistenceTest < CassandraObject::TestCase
 
     assert_equal(
       {'schema_version' => 'foo'},
-      klass.encode_attributes({description: nil}, 'foo')
+      klass.encode_attributes({:description => nil}, 'foo')
     )
 
     assert_equal(
       {'description' => 'lol', 'schema_version' => 'foo'},
-      klass.encode_attributes({description: 'lol'}, 'foo')
+      klass.encode_attributes({:description => 'lol'}, 'foo')
     )
   end
 
@@ -42,10 +42,10 @@ class CassandraObject::PersistenceTest < CassandraObject::TestCase
   test 'save!' do
     klass = temp_object do
       string :description
-      validates :description, presence: true
+      validates :description, :presence => true
     end
     
-    record = klass.new(description: 'bad')
+    record = klass.new(:description => 'bad')
     record.save!
 
     assert_raise CassandraObject::RecordInvalid do
@@ -73,7 +73,7 @@ class CassandraObject::PersistenceTest < CassandraObject::TestCase
   
   test 'update_attributes' do
     issue = Issue.create
-    issue.update_attributes(description: 'lol')
+    issue.update_attributes(:description => 'lol')
 
     assert !issue.changed?
     assert_equal 'lol', issue.description
@@ -81,13 +81,13 @@ class CassandraObject::PersistenceTest < CassandraObject::TestCase
 
   test 'update_attributes!' do
     begin
-      Issue.validates(:description, presence: true)
+      Issue.validates(:description, :presence => true)
 
-      issue = Issue.new(description: 'bad')
+      issue = Issue.new(:description => 'bad')
       issue.save!
       
       assert_raise CassandraObject::RecordInvalid do
-        issue.update_attributes! description: ''
+        issue.update_attributes! :description => ''
       end
     ensure
       Issue.reset_callbacks(:validate)

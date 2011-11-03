@@ -18,11 +18,11 @@ class CassandraObject::Types::ArrayTypeTest < CassandraObject::Types::TestCase
   class TestIssue < CassandraObject::Base
     key :uuid
     self.column_family = 'Issues'
-    array :favorite_colors, unique: true
+    array :favorite_colors, :unique => true
   end
 
   test 'append marks dirty' do
-    issue = TestIssue.create favorite_colors: []
+    issue = TestIssue.create :favorite_colors => []
     assert !issue.changed?
 
     issue.favorite_colors << 'red'
@@ -31,7 +31,7 @@ class CassandraObject::Types::ArrayTypeTest < CassandraObject::Types::TestCase
   end
 
   test 'delete marks dirty' do
-    issue = TestIssue.create favorite_colors: ['red']
+    issue = TestIssue.create :favorite_colors => ['red']
     assert !issue.changed?
 
     issue.favorite_colors.delete('red')
@@ -40,12 +40,12 @@ class CassandraObject::Types::ArrayTypeTest < CassandraObject::Types::TestCase
   end
 
   test 'unique array removes nil' do
-    issue = TestIssue.create favorite_colors: ['blue', 'red', nil]
+    issue = TestIssue.create :favorite_colors => ['blue', 'red', nil]
     assert_equal ['blue', 'red'], issue.favorite_colors
   end
 
   test 'unique array uniquifies' do
-    issue = TestIssue.create favorite_colors: ['blue', 'red']
+    issue = TestIssue.create :favorite_colors => ['blue', 'red']
     
     issue.favorite_colors = ['red', 'red', 'blue']
     assert !issue.changed?
@@ -55,7 +55,7 @@ class CassandraObject::Types::ArrayTypeTest < CassandraObject::Types::TestCase
   end
 
   test 'unique array rescues argument error' do
-    issue = TestIssue.create favorite_colors: [1, 'red']
+    issue = TestIssue.create :favorite_colors => [1, 'red']
 
     assert_equal [1, 'red'], issue.favorite_colors
   end

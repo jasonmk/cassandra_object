@@ -2,11 +2,11 @@ require 'rubygems'
 require 'bundler/setup'
 require 'test/unit'
 require 'cassandra/0.8'
-require 'gotime-cassandra_object'
+require 'jkusar-cassandra_object'
 
 CassandraObject::Base.establish_connection(
-  keyspace: 'place_directory_development',
-  servers: '127.0.0.1:9160'
+  :keyspace => 'place_directory_development',
+  :servers => '127.0.0.1:9160'
 )
 
 class Issue < CassandraObject::Base
