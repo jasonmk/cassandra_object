@@ -55,4 +55,15 @@ module CassandraObject
   end
 end
 
+# Fixup the thrift library
+require "thrift/protocol/binary_protocol"
+module Thrift
+  class BinaryProtocol
+    def write_string(str)
+      write_i32(str.bytesize)
+      trans.write(str)
+    end
+  end
+end
+
 require 'cassandra_object/railtie' if defined?(Rails)

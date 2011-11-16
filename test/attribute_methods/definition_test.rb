@@ -5,7 +5,7 @@ class CassandraObject::AttributeMethods::DefinitionTest < CassandraObject::TestC
   end
   
   test 'instantiate' do
-    definition = CassandraObject::AttributeMethods::Definition.new(:foo, TestType, {a: :b})
+    definition = CassandraObject::AttributeMethods::Definition.new(:foo, TestType, {:a => :b})
 
     assert_equal 'foo', definition.name
     assert_kind_of TestType, definition.coder

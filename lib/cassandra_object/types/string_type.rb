@@ -7,7 +7,8 @@ module CassandraObject
       end
 
       def wrap(record, name, value)
-        (value.frozen? ? value.dup : value).force_encoding('UTF-8')
+        txt = (value.frozen? ? value.dup : value)
+        txt.force_encoding('UTF-8') if txt.respond_to?(:force_encoding)
       end
     end
   end
