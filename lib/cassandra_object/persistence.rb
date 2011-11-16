@@ -4,13 +4,13 @@ module CassandraObject
 
     module ClassMethods
       def remove(key)
-        ActiveSupport::Notifications.instrument("remove.cassandra_object", column_family: column_family, key: key) do
-          connection.remove(column_family, key.to_s, consistency: thrift_write_consistency)
+        ActiveSupport::Notifications.instrument("remove.cassandra_object", :column_family => column_family, :key => key) do
+          connection.remove(column_family, key.to_s, :consistency => thrift_write_consistency)
         end
       end
 
       def delete_all
-        ActiveSupport::Notifications.instrument("truncate.cassandra_object", column_family: column_family) do
+        ActiveSupport::Notifications.instrument("truncate.cassandra_object", :column_family => column_family) do
           connection.truncate!(column_family)
         end
       end
@@ -24,8 +24,8 @@ module CassandraObject
       def write(key, attributes, schema_version)
         key.tap do |key|
           attributes = encode_attributes(attributes, schema_version)
-          ActiveSupport::Notifications.instrument("insert.cassandra_object", column_family: column_family, key: key, attributes: attributes) do
-            connection.insert(column_family, key.to_s, attributes, consistency: thrift_write_consistency)
+          ActiveSupport::Notifications.instrument("insert.cassandra_object", :column_family => column_family, :key => key, :attributes => attributes) do
+            connection.insert(column_family, key.to_s, attributes, :consistency => thrift_write_consistency)
           end
         end
       end
@@ -43,9 +43,8 @@ module CassandraObject
       def encode_attributes(attributes, schema_version)
         encoded = {"schema_version" => schema_version.to_s}
         attributes.each do |column_name, value|
-          # The ruby thrift gem expects all strings to be encoded as ascii-8bit.
           unless value.nil?
-            encoded[column_name.to_s] = attribute_definitions[column_name.to_sym].coder.encode(value).force_encoding('ASCII-8BIT')
+            encoded[column_name.to_s] = attribute_definitions[column_name.to_sym].coder.encode(value)
           end
         end
         encoded
