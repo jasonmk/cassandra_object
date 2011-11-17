@@ -1,5 +1,6 @@
 require 'active_support/all'
 require 'active_model'
+require 'cassandra/0.8'
 
 module CassandraObject
   extend ActiveSupport::Autoload
@@ -56,7 +57,7 @@ module CassandraObject
 end
 
 # Fixup the thrift library
-require "thrift/protocol/binary_protocol"
+require "thrift"
 module Thrift
   class BinaryProtocol
     def write_string(str)
