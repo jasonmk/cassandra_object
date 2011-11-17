@@ -6,7 +6,7 @@ Cassandra Object uses ActiveModel to mimic much of the behavior in ActiveRecord.
 
 Add the following to your Gemfile:
 
-  gem 'cassandra', require: '0.8'
+  gem 'cassandra', :require => '0.8'
   gem 'jkusar-cassandra_object'
 
 Change the version of Cassandra accordingly. Recent versions have not been backward compatible.
@@ -18,9 +18,9 @@ Change the version of Cassandra accordingly. Recent versions have not been backw
     string :name
     string :description
     integer :price
-    array :colors, unique: true
+    array :colors, :unique => true
 
-    validates :name, presence: :true
+    validates :name, :presence => :true
 
     before_create do
       self.description = "#{name} is the best product ever"
