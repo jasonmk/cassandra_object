@@ -8,7 +8,7 @@ module CassandraObject
 
         if key_string.blank?
           raise CassandraObject::RecordNotFound, "Couldn't find #{self.name} with key #{key.inspect}"
-        elsif attributes = connection.get(column_family, key_string).presence
+        elsif attributes = connection.get(column_family, key_string, {:count => 500}).presence
           instantiate(key_string, attributes)
         else
           raise CassandraObject::RecordNotFound

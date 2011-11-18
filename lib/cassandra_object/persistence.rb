@@ -36,7 +36,7 @@ module CassandraObject
           object.instance_variable_set("@key", parse_key(key)) if key
           object.instance_variable_set("@new_record", false)
           object.instance_variable_set("@destroyed", false)
-          object.instance_variable_set("@attributes", instantiate_attributes(object, attributes))
+          object.instance_variable_set("@attributes", typecast_attributes(object, attributes))
         end
       end
 
@@ -50,7 +50,7 @@ module CassandraObject
         encoded
       end
 
-      def instantiate_attributes(object, attributes)
+      def typecast_attributes(object, attributes)
         attributes = attributes.symbolize_keys
         Hash[attribute_definitions.map { |k, attribute_definition| [k.to_s, attribute_definition.instantiate(object, attributes[k])] }]
       end

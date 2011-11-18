@@ -32,7 +32,6 @@ module CassandraObject
       def write_attribute(name, value)
         name = name.to_s
         old = read_attribute(name)
-
         super
 
         unless attribute_changed?(name) || old == read_attribute(name)

@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'jkusar-cassandra_object'
-  s.version = '2.8.0'
+  s.version = '2.8.3'
   s.description = 'Cassandra ActiveModel'
   s.summary = 'Cassandra ActiveModel'
 
