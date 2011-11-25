@@ -39,7 +39,6 @@ module CassandraObject
     include AttributeMethods::Typecasting
     include Callbacks
     include Validations
-    include Associations
     include Timestamps
 
     attr_reader :attributes
