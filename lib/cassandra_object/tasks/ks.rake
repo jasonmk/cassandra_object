@@ -90,6 +90,12 @@ namespace :ks do
     version = CassandraObject::Schema::Migrator.current_version
     puts "Current version: #{version}"
   end
+  
+  desc 'Load the seed data from ks/seeds.rb'
+  task :seed => :environment do
+    seed_file = Rails.root.join("ks","seeds.rb")
+    load(seed_file) if seed_file.exists?
+  end
 
   private
 
