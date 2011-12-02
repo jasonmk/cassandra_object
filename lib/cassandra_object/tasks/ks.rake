@@ -94,7 +94,7 @@ namespace :ks do
   desc 'Load the seed data from ks/seeds.rb'
   task :seed => :environment do
     seed_file = Rails.root.join("ks","seeds.rb")
-    load(seed_file) if seed_file.exists?
+    load(seed_file) if seed_file.exist?
   end
 
   private
