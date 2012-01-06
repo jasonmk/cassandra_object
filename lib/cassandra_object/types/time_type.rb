@@ -17,7 +17,7 @@ module CassandraObject
 
       def decode(str)
         return nil if str.empty?
-        raise ArgumentError.new("Cannot convert #{str} into a Time") unless str.kind_of?(String) && str.match(REGEX)
+        return nil unless str.kind_of?(String) && str.match(REGEX)
         Time.xmlschema(str)
       end
     end

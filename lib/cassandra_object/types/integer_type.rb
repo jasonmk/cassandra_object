@@ -9,7 +9,7 @@ module CassandraObject
 
       def decode(str)
         return nil if str.empty?
-        raise ArgumentError.new("Cannot convert #{str} into an Integer") unless str.kind_of?(String) && str.match(REGEX)
+        return nil unless str.kind_of?(String) && str.match(REGEX)
         str.to_i
       end
     end

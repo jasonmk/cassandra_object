@@ -10,7 +10,7 @@ module CassandraObject
       end
 
       def decode(str)
-        Date.parse(str)
+        Date.parse(str) rescue nil
       end
     end
   end
