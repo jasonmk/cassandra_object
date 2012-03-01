@@ -43,7 +43,9 @@ module CassandraObject
       def encode_attributes(attributes, schema_version)
         encoded = {"schema_version" => schema_version.to_s}
         attributes.each do |column_name, value|
-          unless value.nil?
+          if value.nil?
+            encoded[column_name.to_s] = ""
+          else
             encoded[column_name.to_s] = attribute_definitions[column_name.to_sym].coder.encode(value)
           end
         end

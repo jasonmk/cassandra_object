@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'jkusar-cassandra_object'
-  s.version = '2.8.6'
+  s.version = '2.8.9'
   s.description = 'Cassandra ActiveModel'
   s.summary = 'Cassandra ActiveModel'
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files  = `git ls-files -- {test}/*`.split("\n")
   s.require_paths = ['lib']
 
-  s.add_runtime_dependency('activemodel', "~> 3.1")
+  s.add_runtime_dependency('activemodel', "~> 3.2")
   s.add_runtime_dependency('cassandra', "~> 0.12.0")
 
   s.add_development_dependency('bundler', "~> 1.0.0")
